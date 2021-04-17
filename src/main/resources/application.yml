@@ -1,0 +1,31 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+resilience4j:
+  retry:
+    backends:
+      mocky-resilience:
+        maxRetryAttempts: 10
+        waitDuration: 1000
+        retryExceptions:
+          - br.com.studiotrek.resilience.exception.RequestTimeout
+  circuitbreaker:
+    backends:
+      mocky-resilience:
+        failureRateThreshold: 5
+        waitDurationInOpenState: 30s
+        minimumNumberOfCalls: 10
+        permittedNumberOfCallsInHalfOpenState: 5
+        slidingWindowSize: 10
+        ignoreExceptions:
+          - br.com.studiotrek.resilience.exception.InternalServerError
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 5000
+      mocky:
+        url: https://run.mocky.io/v3
