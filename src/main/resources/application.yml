@@ -1,6 +1,22 @@
 spring:
+  application:
+    name: resilience
   main:
     allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/resilience
+  cache:
+    type: redis
+    redis:
+      time-to-live: 86400000
+  redis:
+    host: localhost
+    port: 6379
+
+redis:
+  keys:
+    findByName: findByName
 
 resilience4j:
   retry:

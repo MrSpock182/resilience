@@ -17,7 +17,7 @@ public class MockIntegrationImpl implements MockIntegration {
     }
 
     @Override
-    @Cacheable(value = "callApi")
+    @Cacheable(cacheNames = "mocky")
     @CircuitBreaker(name = "default")
     @Bulkhead(name = "mocky")
     @Retry(name = "mocky-resilience", fallbackMethod = "callApiFallback")
