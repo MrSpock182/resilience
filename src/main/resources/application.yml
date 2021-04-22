@@ -14,10 +14,6 @@ spring:
     host: localhost
     port: 6379
 
-redis:
-  keys:
-    findByName: findByName
-
 resilience4j:
   retry:
     backends:
