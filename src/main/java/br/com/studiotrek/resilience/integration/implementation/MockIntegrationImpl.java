@@ -18,8 +18,8 @@ public class MockIntegrationImpl implements MockIntegration {
 
     @Override
     @Cacheable(cacheNames = "mocky")
-    @CircuitBreaker(name = "default")
-    @Bulkhead(name = "mocky")
+    @CircuitBreaker(name = "mocky-resilience")
+    @Bulkhead(name = "mocky-resilience")
     @Retry(name = "mocky-resilience", fallbackMethod = "callApiFallback")
     public String callApi(final String id) {
         return integration.callApi(id);

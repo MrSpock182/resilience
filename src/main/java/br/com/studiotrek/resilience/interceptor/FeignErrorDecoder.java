@@ -3,12 +3,9 @@ package br.com.studiotrek.resilience.interceptor;
 import br.com.studiotrek.resilience.exception.InternalServerError;
 import br.com.studiotrek.resilience.exception.RequestTimeout;
 import br.com.studiotrek.resilience.exception.ServiceUnavailable;
-import feign.FeignException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.springframework.stereotype.Component;
-
-import java.util.concurrent.TimeoutException;
 
 @Component
 public class FeignErrorDecoder implements ErrorDecoder {

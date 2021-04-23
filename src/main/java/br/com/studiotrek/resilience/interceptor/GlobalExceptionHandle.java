@@ -1,6 +1,7 @@
 package br.com.studiotrek.resilience.interceptor;
 
 import br.com.studiotrek.resilience.exception.InternalServerError;
+import br.com.studiotrek.resilience.exception.NotFound;
 import br.com.studiotrek.resilience.exception.RequestTimeout;
 import br.com.studiotrek.resilience.exception.ServiceUnavailable;
 import org.springframework.http.HttpStatus;
@@ -32,6 +33,13 @@ public class GlobalExceptionHandle {
     @ExceptionHandler(InternalServerError.class)
     public String handleErrorInternal(final InternalServerError ex, final WebRequest request) {
         return "REQUEST_TIMEOUT";
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFound.class)
+    public String handleErrorNotFound(final NotFound ex, final WebRequest request) {
+        return "NOT_FOUND";
     }
 
 }
