@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     @Bulkhead(name = "mocky-resilience")
     @Cacheable(cacheNames = "userService")
     public UserOrm findById(final String id) {
+        System.out.println("Retry");
         try {
             Optional<UserOrm> optional = repository.findById(id);
 

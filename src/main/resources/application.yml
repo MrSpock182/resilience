@@ -17,19 +17,19 @@ spring:
 resilience4j:
   retry:
     backends:
-      mocky-resilience:
+      default-retry:
         maxRetryAttempts: 10
         waitDuration: 1000
         retryExceptions:
           - br.com.studiotrek.resilience.exception.RequestTimeout
   circuitbreaker:
     backends:
-      mocky-resilience:
+      default-circuit-breaker:
         failureRateThreshold: 5
         waitDurationInOpenState: 30s
-        minimumNumberOfCalls: 10
+        minimumNumberOfCalls: 5
         permittedNumberOfCallsInHalfOpenState: 5
-        slidingWindowSize: 10
+        slidingWindowSize: 5
         ignoreExceptions:
           - br.com.studiotrek.resilience.exception.InternalServerError
 

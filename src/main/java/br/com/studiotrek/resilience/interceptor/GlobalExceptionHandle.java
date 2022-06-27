@@ -4,6 +4,7 @@ import br.com.studiotrek.resilience.exception.InternalServerError;
 import br.com.studiotrek.resilience.exception.NotFound;
 import br.com.studiotrek.resilience.exception.RequestTimeout;
 import br.com.studiotrek.resilience.exception.ServiceUnavailable;
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,7 +33,7 @@ public class GlobalExceptionHandle {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(InternalServerError.class)
     public String handleErrorInternal(final InternalServerError ex, final WebRequest request) {
-        return "REQUEST_TIMEOUT";
+        return "INTERNAL_SERVER_ERROR";
     }
 
     @ResponseBody
@@ -40,6 +41,13 @@ public class GlobalExceptionHandle {
     @ExceptionHandler(NotFound.class)
     public String handleErrorNotFound(final NotFound ex, final WebRequest request) {
         return "NOT_FOUND";
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(CallNotPermittedException.class)
+    public String resilience4j(final CallNotPermittedException ex, final WebRequest request) {
+        return "CIRCUIT_BREAKER_CLOSE";
     }
 
 }

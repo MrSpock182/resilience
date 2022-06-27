@@ -3,8 +3,8 @@ package br.com.studiotrek.resilience.resource;
 import br.com.studiotrek.resilience.integration.MockIntegration;
 import br.com.studiotrek.resilience.repository.orm.UserOrm;
 import br.com.studiotrek.resilience.service.UserService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +24,13 @@ public class MockApi {
     }
 
     @ResponseStatus(OK)
-    @GetMapping("/hello")
-    public String mock() {
-        return integration.callApi("bb065c58-5c09-4b4c-9d17-7e981a287578");
+    @GetMapping("/hello/{id}")
+    public String mock(@PathVariable String id) {
+//        return integration.callApi("bb065c58-5c09-4b4c-9d17-7e981a287578");
+
+        return integration.callApi(id);
+
+
 //        return integration.callApi("df2801f1-a8d6-462f-9472-ccfd004294d0");
 //        return integration.callApi("d4ea1aa9-12f6-4cbf-95e5-50d6485e93e2");
     }

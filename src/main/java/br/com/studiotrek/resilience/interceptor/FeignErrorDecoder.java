@@ -1,6 +1,7 @@
 package br.com.studiotrek.resilience.interceptor;
 
 import br.com.studiotrek.resilience.exception.InternalServerError;
+import br.com.studiotrek.resilience.exception.NotFound;
 import br.com.studiotrek.resilience.exception.RequestTimeout;
 import br.com.studiotrek.resilience.exception.ServiceUnavailable;
 import feign.Response;
@@ -14,6 +15,8 @@ public class FeignErrorDecoder implements ErrorDecoder {
     public Exception decode(String s, Response response) {
         System.out.println(response.status());
         switch (response.status()) {
+            case 404:
+                return new NotFound(response.toString());
             case 408:
                 return new RequestTimeout(response.toString());
             case 503:
